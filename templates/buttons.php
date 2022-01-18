@@ -1,11 +1,40 @@
 <?php
-$youtube =  '<div class="g-ytsubscribe"  data-channel="'.$instance['channel'].'" data-layout="'.$instance['layout'].'" data-theme="dark" data-count="default"></div> ';
+$youtube =  '<div class="g-ytsubscribe"  data-channel="'.$instance['channel'].'" data-layout="'.$instance['layout'].'" data-theme="dark" data-count="'.$instance['show_youtube_count'].'"></div> ';
 
-$twitter = ' <div><a href="https://twitter.com/thomas_alemayeh?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-size="large" data-show-screen-name="true" data-lang="en" data-show-count="true">Follow @thomas_alemayeh</a><script charset="utf-8"></script> </div>';
+$twitter = '<a href="https://twitter.com/'.$instance['twitter_account'].'?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="'.$instance['twitter_show_count'].'" data-size="'.$instance['twitter_size'].'" data-show-screen-name="'.$instance['twitter_show_screen_name'].'">Follow @'.$instance['twitter_account'].'</a>';
+
+$twitter_w = '  <div>
+
+                        <a href="https://twitter.com/'.$instance['twitter_account'].'?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="'.$instance['twitter_show_count'].'" data-size="'.$instance['twitter_size'].'" data-show-screen-name="'.$instance['twitter_show_screen_name'].'">Follow @'.$instance['twitter_account'].'</a>
+
+                </div>';
 
 
-$pinterest = ' <script async defer src="//assets.pinterest.com/js/pinit.js"></script> <a data-pin-do="buttonFollow" href="https://www.pinterest.com/pinterest/">Pinterest</a>';
+$pinterest = ' <a href="https://www.pinterest.com/'.$instance['pinterest_account'].'/" data-pin-do="buttonFollow">
+                                '.$instance['pinterest_button_name'].'
+                </a>';
 
-$linkedin = '<script src="https://platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
-<script type="IN/FollowCompany" data-id="0000" data-counter="bottom"></script>';
+$pinterest_w = '<div>
+                        <a href="https://www.pinterest.com/'.$instance['pinterest_account'].'/" data-pin-do="buttonFollow">
+                                '.$instance['pinterest_button_name'].'
+                        </a>
+                </div>';
+
+$linkedin = '<script type="IN/FollowCompany" data-id="'.$instance['linkedin_id'].'" data-counter="'.$instance['linkedin_counter_position'].'"></script>';
+
+$linkedin_w = '<div>    
+                        <script type="IN/FollowCompany" data-id="'.$instance['linkedin_id'].'" data-counter="'.$instance['linkedin_counter_position'].'"></script>
+                </div>';
+
+
+$inline = "<div class='flexer'> $youtube $twitter $pinterest $linkedin </div>"
 ?>
+
+<style>
+.flexer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80vw !important;
+}
+</style>

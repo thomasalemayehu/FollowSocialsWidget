@@ -37,12 +37,26 @@ class Follow_Socials_Widget extends WP_Widget {
        
 
 		require_once(WP_PLUGIN_DIR."/follow-socials/templates/buttons.php");
-	   	// echo $youtube;
-		// echo $twitter;
-		// echo $pinterest;
-		// echo $linkedin;
+	   	if($instance['display_style'] == 'columns'){
+				if($instance['show_youtube'] == 'show'){
+					echo $youtube;
+				}
 
-		echo "Hey".$instance['show_youtube'];
+				if($instance['show_twitter'] == 'show'){
+			   		echo $twitter_w;
+		   		}
+				if($instance['show_pinterest'] == 'show'){
+			   		echo $pinterest_w;
+		   		}
+				if($instance['show_linkedin'] == 'show'){
+			   		echo $linkedin;
+				}
+		}else{
+			echo $inline;
+		}
+		
+		
+
 
         // After Widget
 		echo $args['after_widget'];
@@ -63,8 +77,12 @@ class Follow_Socials_Widget extends WP_Widget {
 			General Options
 			==================================================
 		*/
-		$show_youtube = ! empty( $instance['show_youtube'] ) ? $instance['show_youtube'] : esc_html__( 'yes', 'follow-socials-domain' );
-
+		$show_youtube = ! empty( $instance['show_youtube'] ) ? $instance['show_youtube'] : esc_html__( 'show', 'follow-socials-domain' );
+		$show_twitter= ! empty( $instance['show_twitter'] ) ? $instance['show_twitter'] : esc_html__( 'show', 'follow-socials-domain' );
+		$show_pinterest = ! empty( $instance['show_pinterest'] ) ? $instance['show_pinterest'] : esc_html__( 'show', 'follow-socials-domain' );
+		$show_linkedin = ! empty( $instance['show_linkedin'] ) ? $instance['show_linkedin'] : esc_html__( 'show', 'follow-socials-domain' );
+		$full_width = ! empty( $instance['full_width'] ) ? $instance['full_width'] : esc_html__( 'false', 'follow-socials-domain' );
+		$display_style = empty( $instance['display_style'] ) ? $instance['display_style'] : esc_html__( 'columns', 'follow-socials-domain' );
 
 
 
@@ -75,66 +93,43 @@ class Follow_Socials_Widget extends WP_Widget {
 		*/
         $channel = ! empty( $instance['channel'] ) ? $instance['channel'] : esc_html__( 'GoogleDevelopers', 'follow-socials-domain' );
         $layout = ! empty( $instance['layout'] ) ? $instance['layout'] : esc_html__( 'default', 'follow-socials-domain' );
-        $theme = ! empty( $instance['theme'] ) ? $instance['theme'] : esc_html__( 'default', 'follow-socials-domain' );
+		$show_youtube_count = ! empty( $instance['layout'] ) ? $instance['show_youtube_count'] : esc_html__( 'default', 'follow-socials-domain' );
+
+		/*
+			==================================================
+			Twitter Options
+			==================================================
+		*/
+		$twitter_account = ! empty( $instance['twitter_account'] ) ? $instance['twitter_account'] : esc_html__( 'googledevs', 'follow-socials-domain' );
+		$twitter_show_count = ! empty( $instance['show_twitter_count'] ) ? $instance['show_twitter_count'] : esc_html__( 'true', 'follow-socials-domain' );
+		$twitter_size = ! empty( $instance['twitter_size'] ) ? $instance['twitter_size'] : esc_html__( 'large', 'follow-socials-domain' );
+		$twitter_show_screen_name = ! empty( $instance['show_twitter_screen_name'] ) ? $instance['show_twitter_screen_name'] : esc_html__( 'true', 'follow-socials-domain' );
+
+		/*
+			==================================================
+			Pinterest Options
+			==================================================
+		*/
+		$pinterest_account = ! empty( $instance['pinterest'] ) ? $instance['pinterest'] : esc_html__( 'Google', 'follow-socials-domain' );
+		$pinterest_button_name = ! empty( $instance['pinterest_button_name'] ) ? $instance['pinterest_button_name'] : esc_html__( 'Follow Me', 'follow-socials-domain' );
+
+		/*
+			==================================================
+			LinkedIn Options
+			==================================================
+		*/
+		$linkedin_id = ! empty( $instance['linkedin_id'] ) ? $instance['linkedin_id'] : esc_html__( '0000', 'follow-socials-domain' );
+		$linkedin_counter_position = ! empty( $instance['linkedin_counter_position'] ) ? $instance['linkedin_counter_position'] : esc_html__( 'bottom', 'follow-socials-domain' );
+		
         
 		?>
 
-<p>
-    <label
-        for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title:', 'follow-socials-domain' ); ?></label>
-    <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
-        name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text"
-        value="<?php echo esc_attr( $title ); ?>">
-</p>
+<?php
+include ( WP_PLUGIN_DIR."/follow-socials/templates/form.php" );
+?>
 
-<!-- 
-	==================================================
-	General Options
-	==================================================
- -->
-<p>
-    <label
-        for="<?php echo esc_attr( $this->get_field_id( 'show_youtube' ) ); ?>"><?php esc_attr_e( 'Youtube:', 'follow-socials-domain' ); ?></label>
-    <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'show_youtube' ) ); ?>"
-        name="<?php echo esc_attr( $this->get_field_name( 'show_youtube' ) ); ?>" type="checkbox" id="1" name="Youtube"
-        value="1">
-</p>
 
-<!-- 
-	==================================================
-	Youtube Options
-	==================================================
- -->
-<!-- Channel Name -->
-<p>
-    <label
-        for="<?php echo esc_attr( $this->get_field_id( 'channel' ) ); ?>"><?php esc_attr_e( 'Channel:', 'follow-socials-domain' ); ?></label>
-    <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'channel' ) ); ?>"
-        name="<?php echo esc_attr( $this->get_field_name( 'channel' ) ); ?>" type="text"
-        value="<?php echo esc_attr( $channel ); ?>">
-</p>
 
-<!-- Layout Type-->
-<p>
-    <label
-        for="<?php echo esc_attr( $this->get_field_id( 'layout' ) ); ?>"><?php esc_attr_e( 'Layout:', 'follow-socials-domain' ); ?></label>
-    <select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'layout' ) ); ?>"
-        name="<?php echo esc_attr( $this->get_field_name( 'layout' ) ); ?>">
-        <option value='default' <?php echo ($layout == 'default') ? 'selected' : "" ?>> Default </option>
-        <option value='full' <?php echo ($layout == 'full') ? 'selected' : "" ?>> Full </option>
-    </select>
-</p>
-
-<!-- Theme Type -->
-<p>
-    <label
-        for="<?php echo esc_attr( $this->get_field_id( 'theme' ) ); ?>"><?php esc_attr_e( 'Theme:', 'follow-socials-domain' ); ?></label>
-    <select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'theme' ) ); ?>"
-        name="<?php echo esc_attr( $this->get_field_name( 'theme' ) ); ?>">
-        <option value='default' <?php echo ($layout == 'default') ? 'selected' : "" ?>> Default </option>
-        <option value='dark' <?php echo ($layout == 'dark') ? 'selected' : "" ?>> Dark </option>
-    </select>
-</p>
 <?php 
 	}
 
@@ -159,8 +154,13 @@ class Follow_Socials_Widget extends WP_Widget {
 		*/
 
 		$instance['show_youtube'] = ( ! empty( $new_instance['show_youtube'] ) ) ? sanitize_text_field( $new_instance['show_youtube'] ) : '';
+		$instance['show_twitter'] = ( ! empty( $new_instance['show_twitter'] ) ) ? sanitize_text_field( $new_instance['show_twitter'] ) : '';
+		$instance['show_pinterest'] = ( ! empty( $new_instance['show_pinterest'] ) ) ? sanitize_text_field( $new_instance['show_pinterest'] ) : '';
+		$instance['show_linkedin'] = ( ! empty( $new_instance['show_linkedin'] ) ) ? sanitize_text_field( $new_instance['show_linkedin'] ) : '';
+		$instance['display_style'] = ( ! empty( $new_instance['display_style'] ) ) ? sanitize_text_field( $new_instance['display_style'] ) : '';
+		$instance['full_width'] = ( ! empty( $new_instance['full_width'] ) ) ? sanitize_text_field( $new_instance['display_style'] ) : '';
 
-
+		
 		
 		/*
 			==================================================
@@ -169,7 +169,35 @@ class Follow_Socials_Widget extends WP_Widget {
 		*/
         $instance['channel'] = ( ! empty( $new_instance['channel'] ) ) ? sanitize_text_field( $new_instance['channel'] ) : '';
         $instance['layout'] = ( ! empty( $new_instance['layout'] ) ) ? sanitize_text_field( $new_instance['layout'] ) : '';
-        $instance['theme'] = ( ! empty( $new_instance['theme'] ) ) ? sanitize_text_field( $new_instance['theme'] ) : '';
+		$instance['show_youtube_count'] = ( ! empty( $new_instance['show_youtube_count'] ) ) ? sanitize_text_field( $new_instance['show_youtube_count'] ) : '';
+
+
+		/*
+			==================================================
+			Twitter Options
+			==================================================
+		*/
+		$instance['twitter_account'] =  ( ! empty( $new_instance['twitter_account'] ) ) ? sanitize_text_field( $new_instance['twitter_account'] ) : '';
+		$instance['twitter_show_count'] = ( ! empty( $new_instance['twitter_show_count'] ) ) ? sanitize_text_field( $new_instance['twitter_show_count'] ) : '';
+		$instance['twitter_size'] = ( ! empty( $new_instance['twitter_size'] ) ) ? sanitize_text_field( $new_instance['twitter_size'] ) : '';
+		$instance['twitter_show_screen_name'] = ( ! empty( $new_instance['twitter_show_screen_name'] ) ) ? sanitize_text_field( $new_instance['twitter_show_screen_name'] ) : '';
+
+		/*
+			==================================================
+			Pinterest Options
+			==================================================
+		*/
+		$instance['pinterest_account'] =  ( ! empty( $new_instance['pinterest_account'] ) ) ? sanitize_text_field( $new_instance['pinterest_account'] ) : '';
+		$instance['pinterest_button_name'] = ( ! empty( $new_instance['pinterest_button_name'] ) ) ? sanitize_text_field( $new_instance['pinterest_button_name'] ) : '';
+
+		/*
+			==================================================
+			LinkedIn Options
+			==================================================
+		*/
+		$instance['linkedin_id'] =  ( ! empty( $new_instance['linkedin_id'] ) ) ? sanitize_text_field( $new_instance['linkedin_id'] ) : '';
+		$instance['linkedin_counter_position'] = ( ! empty( $new_instance['linkedin_counter_position'] ) ) ? sanitize_text_field( $new_instance['linkedin_counter_position'] ) : '';
+      
         
 		return $instance;
 	}
