@@ -33,7 +33,6 @@ class Follow_Socials_Widget extends WP_Widget {
 			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
 		}
         
-		// echo esc_html__( 'Hello, World!', 'follow-socials-domain' );
        
 
 		require_once(WP_PLUGIN_DIR."/follow-socials/templates/buttons.php");
@@ -132,17 +131,6 @@ include ( WP_PLUGIN_DIR."/follow-socials/templates/form.php" );
 
 <?php 
 	}
-
-	/**
-	 * Sanitize widget form values as they are saved.
-	 *
-	 * @see WP_Widget::update()
-	 *
-	 * @param array $new_instance Values just sent to be saved.
-	 * @param array $old_instance Previously saved values from database.
-	 *
-	 * @return array Updated safe values to be saved.
-	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
 		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? sanitize_text_field( $new_instance['title'] ) : '';
